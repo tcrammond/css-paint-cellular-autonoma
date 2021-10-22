@@ -1,6 +1,6 @@
 <script lang="ts">
-  let color1 = '#fff'
-  let color2 = '#000'
+  let color1 = '#ffffff'
+  let color2 = '#000000'
   let seed = '2'
   let rule = '30'
   let boxSize = 5
@@ -116,9 +116,10 @@
 
   .the-painters-canvas {
     /* Full bleed */
-    grid-column: 1 / -1;
+    /* grid-column: 1 / -1; */
 
-    height: 250px;
+    width: 100%;
+    height: 350px;
 
     outline: 1px solid black;
     background-image: paint(cellular);
