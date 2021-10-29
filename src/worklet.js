@@ -12,6 +12,8 @@ class Cellular {
   paint(ctx, geometry, properties) {
     let seed = parseInt(properties.get('--seed'), 10) || 1;
     const rule = parseInt(properties.get('--rule'), 10) || 30;
+    const ruleValues = getRuleValues(rule)
+    console.log(rule, ruleValues)
 
     const color1 = properties.get('--color-1') || '#000';
     const color2 = properties.get('--color-2') || '#fff';
@@ -39,7 +41,7 @@ class Cellular {
         if (rl !== l) continue;
         if (rt !== t) continue;
         if (rr !== r) continue;
-        grid[i] = rules[rule][panelIndex]
+        grid[i] = ruleValues[panelIndex]
       }
     }
 
@@ -69,19 +71,8 @@ let panels = [
   [0, 0, 0]
 ]
 
-let rules =
-{
-  30: [
-    0,
-    0,
-    0,
-    1,
-    1,
-    1,
-    1,
-    0
-  ],
-  225: [1,1,1,0,0,0,0,1]
+function getRuleValues (ruleNumber) {
+  return (ruleNumber >>> 0).toString(2).padStart(8, '0').split('').map(s => +s)
 }
 
 function getNeighbors(grid, size, index) {

@@ -1,9 +1,11 @@
 <script lang="ts">
-  let color1 = '#ffffff'
-  let color2 = '#000000'
+  let color1 = '#00A8C8'
+  let color2 = '#F9F2E7'
   let seed = '2'
-  let rule = '30'
-  let boxSize = 5
+  let rule = 225
+  let boxSize = 3
+
+  let rules = new Array(255).fill(0).map((_, i) => i+1)
 </script>
 
 <main>
@@ -34,17 +36,19 @@
   <section class="controls">
     <label for="rule">
       Rule
+      <!-- <input type="number" min="1" max="255" step="1" bind:value={rule} name="rule" id="rule" /> -->
       <select bind:value={rule} name="rule" id="rule">
-        <option value="30">Rule 30</option>
-        <option value="225">Rule 225</option>
+        {#each rules as n}
+          <option value={n}>Rule {n}</option>
+        {/each}
       </select>
     </label>
 
     <label for="seed">
-      Initial seed type
+      Seed type
       <select bind:value={seed} name="seed" id="seed">
-        <option value="1">Center filled cell</option>
-        <option value="2">Random (10% chance for each cell to be filled)</option>
+        <option value="2">Random cells</option>
+        <option value="1">Center cell</option>
       </select>
     </label>
 
@@ -79,7 +83,7 @@
   </section>
 
   <section>
-    <p><em>Small cell sizes and/or large screens will be expensive to generate. Please don't overwork your computer 💆</em></p>
+    <p><em>Painting small cell sizes can be expensive. Please don't overwork your computer 💆</em></p>
   </section>
 </main>
 
