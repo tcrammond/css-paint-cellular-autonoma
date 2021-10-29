@@ -1,27 +1,29 @@
 <script lang="ts">
-  let color1 = '#00A8C8'
-  let color2 = '#F9F2E7'
-  let seed = '2'
-  let rule = 225
-  let boxSize = 3
+  let color1 = "#00A8C8";
+  let color2 = "#F9F2E7";
+  let seedType = "2";
+  let rule = 225;
+  let boxSize = 3;
+  let seed = 'sesame'
 
-  let rules = new Array(255).fill(0).map((_, i) => i+1)
+  let rules = new Array(255).fill(0).map((_, i) => i + 1);
 </script>
 
 <main>
   <section>
     <h1>Simple cellular autonoma as CSS backgrounds</h1>
-  <p>
-    Reference: <a
-      href="https://mathworld.wolfram.com/ElementaryCellularAutomaton.html"
-      target="_blank">Elementary Cellular Autonoma on Wolfram Alpha</a>
-  </p>
+    <p>
+      Reference: <a
+        href="https://mathworld.wolfram.com/ElementaryCellularAutomaton.html"
+        target="_blank">Elementary Cellular Autonoma on Wolfram Alpha</a
+      >
+    </p>
   </section>
 
   <section
     class="the-painters-canvas"
     style={`
-    --seed: ${seed};
+    --seedType: ${seedType};
     --rule: ${rule};
 
     --color-1: ${color1};
@@ -34,7 +36,7 @@
   />
 
   <section class="controls">
-    <label for="rule">
+<label for="rule">
       Rule
       <!-- <input type="number" min="1" max="255" step="1" bind:value={rule} name="rule" id="rule" /> -->
       <select bind:value={rule} name="rule" id="rule">
@@ -44,15 +46,8 @@
       </select>
     </label>
 
-    <label for="seed">
-      Seed type
-      <select bind:value={seed} name="seed" id="seed">
-        <option value="2">Random cells</option>
-        <option value="1">Center cell</option>
-      </select>
-    </label>
 
-    <!-- :thinking: Why are initial selected colors shown as black? -->
+
     <label for="primary"
       >Primary color
       <input
@@ -60,8 +55,29 @@
         name="primary"
         id="primary"
         bind:value={color2}
-        style="height: 50px;"
       />
+    </label>
+
+
+    <label for="size">
+      Cell size (px)
+      <input
+        type="number"
+        bind:value={boxSize}
+        name="size"
+        id="size"
+        step="1"
+        min="1"
+        max="25"
+      />
+    </label>
+
+    <label for="seed">
+      Seed type
+      <select bind:value={seedType} name="seedType" id="seedType">
+        <option value="2">Random cells</option>
+        <option value="1">Center cell</option>
+      </select>
     </label>
 
     <label for="secondary"
@@ -71,19 +87,28 @@
         name="secondary"
         id="secondary"
         bind:value={color1}
-        style="height: 50px;"
       />
     </label>
 
-    <label for="size">
-      Cell size (px)
-      <input type='number' bind:value={boxSize} name="size" id="size" step="1" min="1" max="25" />
+    <label for="secondary"
+      >Seed
+      <input
+        type="text"
+        name="seed"
+        id="seed"
+        bind:value={seed}
+      />
     </label>
 
   </section>
 
   <section>
-    <p><em>Painting small cell sizes can be expensive. Please don't overwork your computer 💆</em></p>
+    <p>
+      <em
+        >Painting small cell sizes can be expensive. Please don't overwork your
+        computer 💆</em
+      >
+    </p>
   </section>
 </main>
 
@@ -102,10 +127,9 @@
     display: grid;
     grid-template-columns:
       1fr
-      min(65ch, 100%)
+      min(70ch, 100%)
       1fr;
 
-    text-align: center;
     margin: 0 auto;
   }
 
@@ -115,7 +139,33 @@
   }
 
   .controls {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  label {
+    display: block;
+  }
+
+  input {
+    box-sizing: border-box;
+    height: 27px;
+  }
+
+  input[type="color"] {
+    display: block;
+    width: 27px;
+    padding: 0;
+  }
+
+  select {
+    display: block;
+    padding: 4px 8px;
+  }
+
+  #seed {
+    font-family: monospace;
   }
 
   .the-painters-canvas {

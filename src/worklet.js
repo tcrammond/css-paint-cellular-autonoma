@@ -1,7 +1,7 @@
 class Cellular {
   static get inputProperties() {
     return [
-      '--seed',
+      '--seedType',
       '--rule',
       '--color-1',
       '--color-2',
@@ -10,7 +10,7 @@ class Cellular {
   }
 
   paint(ctx, geometry, properties) {
-    let seed = parseInt(properties.get('--seed'), 10) || 1;
+    let seedType = parseInt(properties.get('--seedType'), 10) || 1;
     const rule = parseInt(properties.get('--rule'), 10) || 30;
     const ruleValues = getRuleValues(rule)
     console.log(rule, ruleValues)
@@ -25,7 +25,7 @@ class Cellular {
     let grid = new Array(count).fill(0)
 
     // generate a first row
-    if (seed === 1) {
+    if (seedType === 1) {
       grid[Math.floor(gridSize / 2)] = 1
     } else {
       for (let i = 0; i < gridSize; i++) {
