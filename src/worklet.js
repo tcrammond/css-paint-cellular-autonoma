@@ -2,6 +2,7 @@ class Cellular {
   static get inputProperties() {
     return [
       '--seedType',
+      '--seed',
       '--rule',
       '--color-1',
       '--color-2',
@@ -10,10 +11,10 @@ class Cellular {
   }
 
   paint(ctx, geometry, properties) {
-    let seedType = parseInt(properties.get('--seedType'), 10) || 1;
+    const seedType = parseInt(properties.get('--seedType'), 10) || 1;
+    const seed = parseInt(properties.get('--seed'), 10) || 1234;
     const rule = parseInt(properties.get('--rule'), 10) || 30;
     const ruleValues = getRuleValues(rule)
-    console.log(rule, ruleValues)
 
     const color1 = properties.get('--color-1') || '#000';
     const color2 = properties.get('--color-2') || '#fff';
@@ -21,6 +22,7 @@ class Cellular {
 
     const gridSize = Math.floor(geometry.width / boxSize)
     const count = gridSize * gridSize
+    const rand = mulberry32(seed);
 
     let grid = new Array(count).fill(0)
 
@@ -29,7 +31,7 @@ class Cellular {
       grid[Math.floor(gridSize / 2)] = 1
     } else {
       for (let i = 0; i < gridSize; i++) {
-        grid[i] = Math.random() >= 0.9 ? 1 : 0
+        grid[i] = rand() >= 0.9 ? 1 : 0
       }
     }
 
@@ -84,6 +86,17 @@ function getNeighbors(grid, size, index) {
     grid[top],
     grid[right]
   ]
+}
+
+// https://github.com/bryc/code/blob/master/jshash/PRNGs.md
+function mulberry32(a) {
+  return function () {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    var t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
 }
 
 registerPaint('cellular', Cellular);

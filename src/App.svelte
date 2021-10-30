@@ -4,7 +4,7 @@
   let seedType = "2";
   let rule = 225;
   let boxSize = 3;
-  let seed = 'sesame'
+  let seed = 1234
 
   let rules = new Array(255).fill(0).map((_, i) => i + 1);
 </script>
@@ -24,6 +24,7 @@
     class="the-painters-canvas"
     style={`
     --seedType: ${seedType};
+    --seed: ${seed};
     --rule: ${rule};
 
     --color-1: ${color1};
@@ -93,7 +94,7 @@
     <label for="secondary"
       >Seed
       <input
-        type="text"
+        type="number"
         name="seed"
         id="seed"
         bind:value={seed}
@@ -149,6 +150,7 @@
   }
 
   input {
+    display: block;
     box-sizing: border-box;
     height: 27px;
   }
@@ -169,9 +171,6 @@
   }
 
   .the-painters-canvas {
-    /* Full bleed */
-    /* grid-column: 1 / -1; */
-
     width: 100%;
     height: 350px;
 
