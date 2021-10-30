@@ -258,7 +258,6 @@
     width: 100%;
     height: 350px;
 
-    outline: 1px solid black;
     background-image: paint(cellular);
   }
 </style>
