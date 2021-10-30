@@ -32,6 +32,14 @@ const examples: { [name: string]: Example } = {
     color1: '#591C97',
     color2: '#E2E462',
   },
+  brimstone: {
+    rule: 18,
+    seedType: '2',
+    seed: 5535,
+    boxSize: 4,
+    color1: '#000000',
+    color2: '#ff0000',
+  }
 }
 
 export default examples

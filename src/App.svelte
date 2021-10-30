@@ -3,12 +3,12 @@
 
   const urlParams = new URLSearchParams(window.location.search);
 
-  let color1 = urlParams.get('bg') ?? "#00A8C8";
-  let color2 = urlParams.get('fg') ?? "#F9F2E7";
-  let seedType = urlParams.get('type') ?? "2";
-  let rule = parseInt(urlParams.get('rule') ?? '225', 10);
-  let boxSize = parseInt(urlParams.get('size') ?? '5', 10);
-  let seed = parseInt(urlParams.get('seed') ?? '1234', 10);
+  let color1 = urlParams.get("bg") ?? "#00A8C8";
+  let color2 = urlParams.get("fg") ?? "#F9F2E7";
+  let seedType = urlParams.get("type") ?? "2";
+  let rule = parseInt(urlParams.get("rule") ?? "225", 10);
+  let boxSize = parseInt(urlParams.get("size") ?? "5", 10);
+  let seed = parseInt(urlParams.get("seed") ?? "1234", 10);
 
   console.table({
     rule,
@@ -31,16 +31,21 @@
     color2 = example.color2;
   }
 
-  function onControlsChange (e) {
-    const { rule, seedType, size, seed, primary, secondary } = e.target.form.elements
-    urlParams.set('rule', rule.value);
-    urlParams.set('type', seedType.value);
-    urlParams.set('seed', seed.value);
-    urlParams.set('fg', primary.value);
-    urlParams.set('bg', secondary.value);
-    urlParams.set('size', size.value);
+  function onControlsChange(e) {
+    const { rule, seedType, size, seed, primary, secondary } =
+      e.target.form.elements;
+    urlParams.set("rule", rule.value);
+    urlParams.set("type", seedType.value);
+    urlParams.set("seed", seed.value);
+    urlParams.set("fg", primary.value);
+    urlParams.set("bg", secondary.value);
+    urlParams.set("size", size.value);
 
-    history.replaceState(null, '', window.location.pathname + '?' + urlParams.toString());
+    history.replaceState(
+      null,
+      "",
+      window.location.pathname + "?" + urlParams.toString()
+    );
   }
 </script>
 
@@ -99,69 +104,76 @@
 
     <section>
       <h2>Options</h2>
-      <form on:change="{onControlsChange}">
+      <form on:change={onControlsChange}>
         <div class="controls">
-        <label for="rule">
-          Rule
-          <a
-            href="http://atlas.wolfram.com/01/01/{rule}/"
-            target="_blank"
-            title="View rule {rule} on Wolfram Alpha">🔗</a
-          >
-          <select bind:value={rule} name="rule" id="rule">
-            {#each rules as n}
-              <option value={n}>Rule {n}</option>
-            {/each}
-          </select>
-        </label>
+          <label for="rule">
+            Rule
+            <a
+              href="http://atlas.wolfram.com/01/01/{rule}/"
+              target="_blank"
+              title="View rule {rule} on Wolfram Alpha">🔗</a
+            >
+            <select bind:value={rule} name="rule" id="rule">
+              {#each rules as n}
+                <option value={n}>Rule {n}</option>
+              {/each}
+            </select>
+          </label>
 
-        <label for="primary"
-          >Primary color
-          <input type="color" name="primary" id="primary" bind:value={color2} />
-        </label>
+          <label for="primary"
+            >Primary color
+            <input
+              type="color"
+              name="primary"
+              id="primary"
+              bind:value={color2}
+            />
+          </label>
 
-        <label for="size">
-          Cell size (px)
-          <input
-            type="number"
-            bind:value={boxSize}
-            name="size"
-            id="size"
-            step="1"
-            min="1"
-            max="25"
-          />
-        </label>
+          <label for="size">
+            Cell size (px)
+            <input
+              type="number"
+              bind:value={boxSize}
+              name="size"
+              id="size"
+              step="1"
+              min="1"
+              max="25"
+            />
+          </label>
 
-        <label for="seedType">
-          Seed type
-          <select bind:value={seedType} name="seedType" id="seedType">
-            <option value="2">Random cells</option>
-            <option value="1">Center cell</option>
-          </select>
-        </label>
+          <label for="seedType">
+            Seed type
+            <select bind:value={seedType} name="seedType" id="seedType">
+              <option value="2">Random cells</option>
+              <option value="1">Center cell</option>
+            </select>
+          </label>
 
-        <label for="secondary"
-          >Secondary color
-          <input
-            type="color"
-            name="secondary"
-            id="secondary"
-            bind:value={color1}
-          />
-        </label>
+          <label for="secondary"
+            >Secondary color
+            <input
+              type="color"
+              name="secondary"
+              id="secondary"
+              bind:value={color1}
+            />
+          </label>
 
-        <label for="seed"
-          >Seed
-          <input type="number" name="seed" id="seed" bind:value={seed} />
-        </label>
-      </div>
+          <label for="seed"
+            >Seed
+            <input type="number" name="seed" id="seed" bind:value={seed} />
+          </label>
+        </div>
       </form>
-
     </section>
 
     <section>
-      <p>You can share what you've generated with others – just copy the URL of this page.</p>
+      <p>
+        You can share what you've generated with others – just copy the URL of
+        this page.
+      </p>
       <p>
         <em
           >Painting small cell sizes can be expensive. Please don't overwork
@@ -239,6 +251,10 @@
   .royal-triangles {
     background: #591c97;
     color: #e2e462;
+  }
+  .brimstone {
+    background: black;
+    color: #ff0000;
   }
 
   .controls {
