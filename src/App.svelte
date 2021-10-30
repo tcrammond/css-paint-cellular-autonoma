@@ -1,11 +1,14 @@
 <script lang="ts">
   import examples from "./examples";
-  let color1 = "#00A8C8";
-  let color2 = "#F9F2E7";
-  let seedType = "2";
-  let rule = 225;
-  let boxSize = 3;
-  let seed = 1234;
+
+  const urlParams = new URLSearchParams(window.location.search);
+
+  let color1 = urlParams.get('bg') ?? "#00A8C8";
+  let color2 = urlParams.get('fg') ?? "#F9F2E7";
+  let seedType = urlParams.get('type') ?? "2";
+  let rule = parseInt(urlParams.get('rule') ?? '225', 10);
+  let boxSize = parseInt(urlParams.get('size') ?? '5', 10);
+  let seed = parseInt(urlParams.get('seed') ?? '1234', 10);
 
   console.table({
     rule,
@@ -26,6 +29,18 @@
     seed = example.seed;
     color1 = example.color1;
     color2 = example.color2;
+  }
+
+  function onControlsChange (e) {
+    const { rule, seedType, size, seed, primary, secondary } = e.target.form.elements
+    urlParams.set('rule', rule.value);
+    urlParams.set('type', seedType.value);
+    urlParams.set('seed', seed.value);
+    urlParams.set('fg', primary.value);
+    urlParams.set('bg', secondary.value);
+    urlParams.set('size', size.value);
+
+    history.replaceState(null, '', window.location.pathname + '?' + urlParams.toString());
   }
 </script>
 
@@ -84,7 +99,8 @@
 
     <section>
       <h2>Options</h2>
-      <div class="controls">
+      <form on:change="{onControlsChange}">
+        <div class="controls">
         <label for="rule">
           Rule
           <a
@@ -140,9 +156,12 @@
           <input type="number" name="seed" id="seed" bind:value={seed} />
         </label>
       </div>
+      </form>
+
     </section>
 
     <section>
+      <p>You can share what you've generated with others – just copy the URL of this page.</p>
       <p>
         <em
           >Painting small cell sizes can be expensive. Please don't overwork
