@@ -6,6 +6,8 @@ View it at [css-paint-cellular-autonoma.netlify.app](https://css-paint-cellular-
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/222df3cd-c2d4-48be-a449-ab1da5688c26/deploy-status)](https://app.netlify.com/sites/css-paint-cellular-autonoma/deploys)
 
+![Example of CSS Paint cellular autonoma](/example.png)
+
 ## How to run the project locally
 
 1. Clone the repository
