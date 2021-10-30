@@ -8,7 +8,7 @@ if (window.CSS && window.CSS.paintWorklet) {
   import('css-paint-polyfill').then(init)
 }
 
-async function init () {
+async function init() {
   CSS.paintWorklet.addModule(workletURL)
   const app = new App({
     target: document.getElementById('app')
