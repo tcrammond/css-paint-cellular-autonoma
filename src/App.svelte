@@ -4,19 +4,27 @@
   let seedType = "2";
   let rule = 225;
   let boxSize = 3;
-  let seed = 1234
+  let seed = 1234;
 
   let rules = new Array(255).fill(0).map((_, i) => i + 1);
 </script>
 
 <main>
   <section>
-    <h1>Simple cellular autonoma as CSS backgrounds</h1>
+    <h1>CSS Paint backgrounds from simple cellular autonoma</h1>
     <p>
-      Reference: <a
+      A cellular autonoma is a grid of colored cells that evolves according to a
+      set of rules. The rules dictate how the next cell should be colored based
+      on the neighbouring cells. You can learn more by visiting <a
         href="https://mathworld.wolfram.com/ElementaryCellularAutomaton.html"
         target="_blank">Elementary Cellular Autonoma on Wolfram Alpha</a
       >
+    </p>
+    <p>
+      In this example, we use the <a
+        href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Painting_API"
+        target="_blank">CSS Houdini Painting API</a
+      > to paint the cellular autonoma as a background image.
     </p>
   </section>
 
@@ -36,71 +44,64 @@
     title="A grid pattern following the cellular autonoma rule {rule}, in colors {color1} and {color2}."
   />
 
-  <section class="controls">
-<label for="rule">
-      Rule
-      <!-- <input type="number" min="1" max="255" step="1" bind:value={rule} name="rule" id="rule" /> -->
-      <select bind:value={rule} name="rule" id="rule">
-        {#each rules as n}
-          <option value={n}>Rule {n}</option>
-        {/each}
-      </select>
-    </label>
+  <section>
+    <h2>Options</h2>
+    <div class="controls">
+      <label for="rule">
+        Rule
+        <a
+          href="http://atlas.wolfram.com/01/01/225/"
+          target="_blank"
+          title="View rule on Wolfram Alpha">🔗</a
+        >
+        <select bind:value={rule} name="rule" id="rule">
+          {#each rules as n}
+            <option value={n}>Rule {n}</option>
+          {/each}
+        </select>
+      </label>
 
+      <label for="primary"
+        >Primary color
+        <input type="color" name="primary" id="primary" bind:value={color2} />
+      </label>
 
+      <label for="size">
+        Cell size (px)
+        <input
+          type="number"
+          bind:value={boxSize}
+          name="size"
+          id="size"
+          step="1"
+          min="1"
+          max="25"
+        />
+      </label>
 
-    <label for="primary"
-      >Primary color
-      <input
-        type="color"
-        name="primary"
-        id="primary"
-        bind:value={color2}
-      />
-    </label>
+      <label for="seedType">
+        Seed type
+        <select bind:value={seedType} name="seedType" id="seedType">
+          <option value="2">Random cells</option>
+          <option value="1">Center cell</option>
+        </select>
+      </label>
 
+      <label for="secondary"
+        >Secondary color
+        <input
+          type="color"
+          name="secondary"
+          id="secondary"
+          bind:value={color1}
+        />
+      </label>
 
-    <label for="size">
-      Cell size (px)
-      <input
-        type="number"
-        bind:value={boxSize}
-        name="size"
-        id="size"
-        step="1"
-        min="1"
-        max="25"
-      />
-    </label>
-
-    <label for="seed">
-      Seed type
-      <select bind:value={seedType} name="seedType" id="seedType">
-        <option value="2">Random cells</option>
-        <option value="1">Center cell</option>
-      </select>
-    </label>
-
-    <label for="secondary"
-      >Secondary color
-      <input
-        type="color"
-        name="secondary"
-        id="secondary"
-        bind:value={color1}
-      />
-    </label>
-
-    <label for="secondary"
-      >Seed
-      <input
-        type="number"
-        name="seed"
-        id="seed"
-        bind:value={seed}
-      />
-    </label>
-
+      <label for="seed"
+        >Seed
+        <input type="number" name="seed" id="seed" bind:value={seed} />
+      </label>
+    </div>
   </section>
 
   <section>
@@ -131,6 +132,7 @@
       min(70ch, 100%)
       1fr;
 
+      padding: 0 1rem;
     margin: 0 auto;
   }
 
@@ -141,12 +143,13 @@
 
   .controls {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
     gap: 10px;
   }
 
   label {
     display: block;
+    font-weight: 500;
   }
 
   input {
